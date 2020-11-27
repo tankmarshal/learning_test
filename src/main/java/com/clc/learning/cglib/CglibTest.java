@@ -1,6 +1,5 @@
 package com.clc.learning.cglib;
 
-import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.cglib.proxy.Enhancer;
 
 public class CglibTest {
@@ -9,8 +8,11 @@ public class CglibTest {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(HelloService.class);
         enhancer.setCallback(new MyMethodInterceptor());
-        HelloService proxy = (HelloService)enhancer.create();
-        proxy.sayHello("myname");
+//        HelloService proxy = (HelloService)enhancer.create();
+        Class[] cls = {String.class};
+        String arg[] = {"arg1"};
+        HelloService proxy = (HelloService)enhancer.create(cls,arg);
+        proxy.sayHello("myName");
         proxy.sayOthers("error");
     }
 }
